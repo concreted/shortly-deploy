@@ -26,14 +26,20 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      dist: {
+        src: ['public/build/production.js'],
+        dest: 'public/build/production.js'
+      }
     },
 
     jshint: {
       files: [
         // Add filespec list here
+        'public/client/*.js',
+        'app/**/*.js',
+        '*.js'
       ],
       options: {
-        force: 'true',
         jshintrc: '.jshintrc',
         ignores: [
           'public/lib/**/*.js',
@@ -98,9 +104,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
-    'concat'
-  ]);
+  grunt.registerTask('build', ['jshint', 'test', 'concat', 'uglify']);
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
@@ -113,6 +117,5 @@ module.exports = function(grunt) {
   grunt.registerTask('deploy', [
     // add your deploy tasks here
   ]);
-
 
 };
