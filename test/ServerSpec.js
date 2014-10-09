@@ -11,6 +11,13 @@ var Link = db.URL;
 // var User = require('../app/models/user');
 // var Link = require('../app/models/link');
 
+var address = '';
+if (process.env.NODE_ENV === 'production') {
+  address = 'http://shortlyhr19rr.azurewebsites.net/';
+} else {
+  address = 'http://localhost:4568';
+}
+
 /////////////////////////////////////////////////////
 // NOTE: these tests are designed for mongo!
 /////////////////////////////////////////////////////
@@ -104,7 +111,7 @@ describe('', function() {
         link = new Link({
           url: 'http://www.roflzoo.com/',
           title: 'Funny animal pictures, funny animals, funniest dogs',
-          base_url: 'http://127.0.0.1:4568',
+          base_url: address,
           code: code,
           visits: 0
         });
