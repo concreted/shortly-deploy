@@ -2,16 +2,20 @@ var request = require('supertest');
 var express = require('express');
 var expect = require('chai').expect;
 var app = require('../server-config.js');
+var bcrypt = require('bcrypt-nodejs');
+var crypto = require('crypto');
 
 var db = require('../app/config');
 var User = db.User;
-var Link = db.URLs;
+var Link = db.URL;
 // var User = require('../app/models/user');
 // var Link = require('../app/models/link');
 
 /////////////////////////////////////////////////////
 // NOTE: these tests are designed for mongo!
 /////////////////////////////////////////////////////
+
+console.log('running tests');
 
 describe('', function() {
 
@@ -22,9 +26,9 @@ describe('', function() {
       .end(function(err, res) {
 
         // Delete objects from db so they can be created later for the test
-        Link.remove({url : 'http://www.roflzoo.com/'}).exec();
-        User.remove({username : 'Savannah'}).exec();
-        User.remove({username : 'Phillip'}).exec();
+        Link.find({url : 'http://www.roflzoo.com/'}).remove().exec();
+        User.find({username : 'Savannah'}).remove().exec();
+        User.find({username : 'Phillip'}).remove().exec();
 
         done();
       });
@@ -82,7 +86,7 @@ describe('', function() {
             Link.findOne({'url' : 'http://www.roflzoo.com/'})
               .exec(function(err,link){
                 if(err) console.log(err);
-                expect(link.title).to.equal('Rofl Zoo - Daily funny animal pictures');
+                expect(link.title).to.equal('Funny animal pictures, funny animals, funniest dogs');
               });
           })
           .end(done);
@@ -93,12 +97,17 @@ describe('', function() {
     describe('With previously saved urls: ', function() {
 
       beforeEach(function(done) {
+        var shasum = crypto.createHash('sha1');
+        shasum.update('http://www.roflzoo.com/');
+        var code = shasum.digest('hex').slice(0, 5);
+
         link = new Link({
           url: 'http://www.roflzoo.com/',
-          title: 'Rofl Zoo - Daily funny animal pictures',
+          title: 'Funny animal pictures, funny animals, funniest dogs',
           base_url: 'http://127.0.0.1:4568',
+          code: code,
           visits: 0
-        })
+        });
 
         link.save(function() {
           done();
@@ -121,6 +130,7 @@ describe('', function() {
 
       it('Shortcode redirects to correct url', function(done) {
         var sha = link.code;
+        console.log('sha================================',sha);
         request(app)
           .get('/' + sha)
           .expect(302)
@@ -210,9 +220,10 @@ describe('', function() {
   describe('Account Login:', function(){
 
     beforeEach(function(done) {
+      var password = bcrypt.hashSync('Phillip');
       new User({
           'username': 'Phillip',
-          'password': 'Phillip'
+          'password': password
       }).save(function(){
         done();
       });

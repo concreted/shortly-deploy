@@ -7,7 +7,7 @@ var bcrypt = require('bcrypt-nodejs');
 var dbpath = ''
 
 if (process.env.NODE_ENV === 'production') {
-  dbpath = ''
+  dbpath = 'mongodb://MongoLab-5:GorvbZaXsOMrDjigx__C6FRPdLNlhD_Qg6CkGr6Lq8U-@ds031108.mongolab.com:31108/MongoLab-5';
 } else {
   dbpath = 'mongodb://localhost/test';
 }
