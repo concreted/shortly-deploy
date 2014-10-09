@@ -2,7 +2,15 @@
 var db = require('../config');
 var Link = require('../models/link');
 
-var Links = new db.Collection();
+var Links = new new URLs({
+  url: String,
+  base_url: String,
+  code: String,
+  title: String,
+  visits: Number,
+  date: { type: Date, default: Date.now },
+});
+
 
 Links.model = Link;
 

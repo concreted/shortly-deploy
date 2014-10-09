@@ -4,14 +4,16 @@ var expect = require('chai').expect;
 var app = require('../server-config.js');
 
 var db = require('../app/config');
-var User = require('../app/models/user');
-var Link = require('../app/models/link');
+var User = db.User;
+var Link = db.URLs;
+// var User = require('../app/models/user');
+// var Link = require('../app/models/link');
 
 /////////////////////////////////////////////////////
 // NOTE: these tests are designed for mongo!
 /////////////////////////////////////////////////////
 
-xdescribe('', function() {
+describe('', function() {
 
   beforeEach(function(done) {
     // Log out currently signed in user
