@@ -86,15 +86,16 @@ db.User = mongoose.model('User', db.Users);
 db.URL = mongoose.model('URL', db.URLs);
 
 db.User.prototype.comparePassword = function(attemptedPassword, callback) {
-  // bcrypt.compare(attemptedPassword, this.password, function(err, isMatch) {
-  //   callback(isMatch);
-  // });
-  console.log('user compare password', this.password, " === ", attemptedPassword);
-  if (this.password === attemptedPassword) {
-    console.log('password match');
-    callback(true);
-  }
-  callback(false);
+  bcrypt.compare(attemptedPassword, this.password, function(err, isMatch) {
+    callback(isMatch);
+  });
+  // console.log('user compare password', this.password, " === ", attemptedPassword);
+  // if (this.password === attemptedPassword) {
+  //   console.log('password match');
+  //   callback(true);
+  // } else {
+  //   callback(false);
+  // }
 };
 
 mongoose.connect(dbpath);
