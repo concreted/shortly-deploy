@@ -85,17 +85,12 @@ db.Users = new mongoose.Schema({
 db.User = mongoose.model('User', db.Users);
 db.URL = mongoose.model('URL', db.URLs);
 
+//db.Links = new mongoose.model('URL', db.URLs);
+
 db.User.prototype.comparePassword = function(attemptedPassword, callback) {
   bcrypt.compare(attemptedPassword, this.password, function(err, isMatch) {
     callback(isMatch);
   });
-  // console.log('user compare password', this.password, " === ", attemptedPassword);
-  // if (this.password === attemptedPassword) {
-  //   console.log('password match');
-  //   callback(true);
-  // } else {
-  //   callback(false);
-  // }
 };
 
 mongoose.connect(dbpath);
@@ -103,11 +98,9 @@ var dbconnection = mongoose.connection;
 dbconnection.once('open', function callback () {
   // yay!
   console.log('db connected');
-  // var user = new db.User({ username: 'Zildjian' });
-  // user.save(function (err) {
-  //   if (err) // ...
-  //   console.log('ow');
-  // });
+  db.URL.find({}, function(err, found) {
+    console.log(found);
+  });
 });
 
 
