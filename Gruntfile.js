@@ -79,46 +79,21 @@ module.exports = function(grunt) {
             containerName: 'containthis',
             serviceOptions : ['mplant', 'p+p32tptT84q6tpwlwbfCxQK9TYGNgpt9bgL0uMB3HB6b0e4lT2bOPBua27KZrqA/6Bf0hBG3jGu2d4hbHl77w=='],
             numberOfFoldersToStripFromSourcePath: 2,
-            destinationFolderPath: 'dev/app'
+            destinationFolderPath: 'dev/app/'
           },
-        src: ['public/client/**/*.{html,js,png,css}']
+        src: ['public/build/*.{html,js,png,css}']
       },
 
       deps: {
         options: {
-          containerName: 'latest-web',
+          containerName: 'containthis',
           serviceOptions : ['mplant', 'p+p32tptT84q6tpwlwbfCxQK9TYGNgpt9bgL0uMB3HB6b0e4lT2bOPBua27KZrqA/6Bf0hBG3jGu2d4hbHl77w=='],
           numberOfFoldersToStripFromSourcePath: 2,
-          destinationFolderPath: 'dev/components'
+          destinationFolderPath: 'dev/lib/'
         },
-        src: ['public/build/**/*.{html,js,png,css}']
+        src: ['public/lib/*.js']
       }
     }
-
-
-    // 'azure-cdn-deploy': {
-    //   app: {
-    //     options: {
-    //       containerName: 'latest-web',
-    //       serviceOptions : ['my-azure-cdn', 'UcQ1G6ETECDaXLV2C...my azure cdn key .../p0tZmzbjw=='],
-    //       numberOfFoldersToStripFromSourcePath: 2,
-    //       destinationFolderPath: 'dev/app'
-    //     },
-    //     src: [
-    //         'build/app/**/*.{html,js,png,css,ico}'
-    //     ]
-    //   },
-    //   deps: {
-    //   options: {
-    //       containerName: 'latest-web',
-    //       serviceOptions : ['my-azure-cdn', 'UcQ1G6ETECDaXLV2C...my azure cdn key .../p0tZmzbjw=='],
-    //       numberOfFoldersToStripFromSourcePath: 2,
-    //       destinationFolderPath: 'dev/components'
-    //   },
-    //   src: [
-    //       'build/components/**/*.{html,js,png,css}'
-    //   ]
-    // }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');

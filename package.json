@@ -14,6 +14,7 @@
     "ejs": "~0.8.5",
     "express": "~3.4.8",
     "express-partials": "~0.2.0",
+    "favicon": "0.0.2",
     "forever": "^0.10.11",
     "grunt": "^0.4.4",
     "grunt-azure-cdn-deploy": "^0.1.2",
